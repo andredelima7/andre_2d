@@ -1,0 +1,110 @@
+* { font-family: Verdana; font-size: 96%; margin:0; padding:0;}
+label { display: block; margin-top: 10px; }
+label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; font-size: 10px }
+p { clear: both; }
+.submit { margin-top: 1em; }
+em { font-weight: bold; padding-right: 1em; vertical-align: top; }
+body{
+	background:url(images/bg.png) repeat;
+}
+
+#main{
+	width:500px;
+	margin:auto;
+}
+
+#geral{
+	width:500px;
+	background:#FFFFFF;
+	float:left;
+}
+
+#header{
+	width:500px;
+	height:81px;
+	background:url(images/header.jpg);
+	float:left;
+}
+
+.andre_proj {
+	float: left;
+	width: 480px;
+	margin-bottom: 10px;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #0066FF;
+	background-color: #EAF9FF;
+	padding: 10px;
+	list-style-type: none;
+}
+
+#header h1 {
+	font-family: "Trebuchet MS", Tahoma, Verdana, "Agency FB", Arial;
+	font-size: 18px;
+	font-style: normal;
+	font-weight: bold;
+	color: #05f7eb;
+	margin-top: 20px;
+	margin-left: 5px;
+}
+#header p {
+	font-size: 13px;
+	font-style: normal;
+	color: #999999;
+	margin-left: 5px;
+}
+#header a {
+	font-weight: bold;
+	color: #333333;
+}
+#formulario_mural {
+	text-align: center;
+	float: left;
+	width: 480px;
+	margin-bottom: 10px;
+	background:#1c7190;
+	padding:10px;
+}
+#mural input{
+	width: 150px;
+	padding-top: 7px;
+	padding-bottom: 7px;
+	margin-top: 3px;
+	border: 1px solid #0fb9b0;
+}
+#mural textarea {
+	padding: 5px;
+	height: 90px;
+	width: 140px;
+	border: 1px solid #0fb9b0;
+}
+.btn {
+	padding: 7px;
+	width: 100px;
+	border: 1px solid #0fb9b0;
+	cursor:pointer;
+}
+
+.btn:hover{
+	background:#05f7eb;
+	color:#0c8680;
+}
+
+#footer{
+	width:500px;
+	height:30px;
+	float:left;
+	display:block;
+	background:#05f7eb;
+	line-height:30px;
+}
+
+#footer p{
+	color:#05f7eb;
+	padding-left:10px;
+}
+
+#footer a{
+	color:#05f7eb;
+	text-decoration:none;
+}
