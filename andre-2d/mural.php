@@ -1,17 +1,12 @@
 <?php
-include "conexao.php"; // Aqui já tem conexão MySQL + variáveis do Cloudinary ($cloud_name, $api_key, $api_secret)
-// ==========================
-// Inserir novo produto
-// ==========================
+include "conexao.php"; // conexão + variáveis Cloudinary
+
 if(isset($_POST['cadastra'])){
-    // Pegando os dados do formulário (tratamento contra SQL Injection)
     $nome = mysqli_real_escape_string($conexao, $_POST['nome']);
     $descricao = mysqli_real_escape_string($conexao, $_POST['descricao']);
     $preco = floatval($_POST['preco']);
-    $imagem_url = ""; // Inicializa a variável que vai guardar a URL da imagem
-    // --------------------------
-    // Upload da imagem para Cloudinary
-    // --------------------------
+    $imagem_url = "";
+
     if(isset($_FILES['imagem']) && $_FILES['imagem']['error'] == 0){
         $cfile = new CURLFile($_FILES['imagem']['tmp_name'], $_FILES['imagem']['type'], $_FILES['imagem']['name']);
 
@@ -43,34 +38,14 @@ if(isset($_POST['cadastra'])){
         }
     }
 
-    // ==========================
-    // Inserindo no banco de dados
-    // ==========================
     if($imagem_url != ""){
         $sql = "INSERT INTO produtos (nome, descricao, preco, imagem_url) VALUES ('$nome', '$descricao', $preco, '$imagem_url')";
         mysqli_query($conexao, $sql) or die("Erro ao inserir: " . mysqli_error($conexao));
     }
 
-    // ==========================
-    // REDIRECIONAMENTO
-    // ==========================
     header("Location: mural.php");
     exit;
 }
-
-/* 
-==================================================
-COMPARAÇÃO COM O CÓDIGO DE "ANTIGOxCLOUDINARY"
-==================================================
-- Tabela usada: recados (nome, email, mensagem)
-- Campos do formulário: nome, email, msg
-- Não tem upload de imagem, nem Cloudinary
-- Inserção SQL: INSERT INTO recados (nome, email, mensagem)
-- Validação adicional no front-end usando jQuery Validate
-- Exibição: <ul> ao invés de <div>, apenas texto, sem preço ou imagem
-- Código mais simples e voltado a mensagens
-==================================================
-*/
 ?>
 
 <!DOCTYPE html>
@@ -78,29 +53,125 @@ COMPARAÇÃO COM O CÓDIGO DE "ANTIGOxCLOUDINARY"
 <head>
 <meta charset="utf-8"/>
 <title>Mural de Produtos</title>
-<link rel="stylesheet" href="style.css"/>
+<link rel="stylesheet" href="style.css">
 
-<!--
-COMPARAÇÃO: No código ANTIGO/pedidos havia jQuery + jQuery Validate
-<script src="scripts/jquery.js"></script>
-<script src="scripts/jquery.validate.js"></script>
-<script>
-$(document).ready(function() {
-    $("#mural").validate({
-        rules: {
-            nome: { required: true, minlength: 4 },
-            email: { required: true, email: true },
-            msg: { required: true, minlength: 10 }
-        },
-        messages: {
-            nome: { required: "Digite o seu nome", minlength: "O nome deve ter no mínimo 4 caracteres" },
-            email: { required: "Digite o seu e-mail", email: "Digite um e-mail válido" },
-            msg: { required: "Digite sua mensagem", minlength: "A mensagem deve ter no mínimo 10 caracteres" }
-        }
-    });
-});
-</script>
--->
+<style>
+  /* Container geral */
+  body {
+    background: #2c3e50;
+    color: #2c3e50;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  #main, #geral {
+    max-width: 600px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    overflow: hidden;
+    color: #2c3e50;
+    padding: 20px;
+  }
+
+  #header {
+    background: #2980b9;
+    padding: 20px;
+    text-align: center;
+    border-radius: 12px 12px 0 0;
+  }
+
+  #header h1 {
+    color: #fff;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  /* Formulário */
+  #formulario_mural {
+    padding: 20px 0;
+  }
+
+  label {
+    display: block;
+    margin: 12px 0 6px;
+    font-weight: 600;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  textarea,
+  input[type="file"] {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  .btn {
+    background-color: #2980b9;
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .btn:hover {
+    background-color: #1c5980;
+  }
+
+  /* Lista de produtos */
+  .produtos-container {
+    margin-top: 30px;
+  }
+
+  .produto {
+    background: #f7f9fc;
+    border-left: 6px solid #2980b9;
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 20px;
+    color: #2c3e50;
+  }
+
+  .produto p {
+    margin: 6px 0;
+  }
+
+  /* Centraliza a imagem no produto */
+  .produto img {
+    display: block;
+    margin: 15px auto 0 auto; /* centraliza horizontal */
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+
+  #footer {
+    background: #2980b9;
+    color: white;
+    text-align: center;
+    padding: 12px;
+    border-radius: 0 0 12px 12px;
+    margin-top: 30px;
+    font-size: 14px;
+  }
+</style>
 </head>
 <body>
 <div id="main">
@@ -109,9 +180,6 @@ $(document).ready(function() {
             <h1>Mural de Produtos</h1>
         </div>
 
-        <!-- ==========================
-        FORMULÁRIO
-        ========================== -->
         <div id="formulario_mural">
             <form id="mural" method="post" enctype="multipart/form-data">
                 <label>Nome do produto:</label>
@@ -130,9 +198,6 @@ $(document).ready(function() {
             </form>
         </div>
 
-        <!-- ==========================
-        LISTA DE PRODUTOS
-        ========================== -->
         <div class="produtos-container">
         <?php
         $seleciona = mysqli_query($conexao, "SELECT * FROM produtos ORDER BY id DESC");
@@ -142,25 +207,17 @@ $(document).ready(function() {
             echo '<p><strong>Nome:</strong> ' . htmlspecialchars($res['nome']) . '</p>';
             echo '<p><strong>Preço:</strong> R$ ' . number_format($res['preco'], 2, ',', '.') . '</p>';
             echo '<p><strong>Descrição:</strong> ' . nl2br(htmlspecialchars($res['descricao'])) . '</p>';
+            // CORREÇÃO AQUI: aspas corrigidas para echo da imagem
             echo '<img src="' . htmlspecialchars($res['imagem_url']) . '" alt="' . htmlspecialchars($res['nome']) . '">';
             echo '</div>';
         }
-
-        /*
-        COMPARAÇÃO: Código antigo x cloudinary
-        - Exibe em <ul class="recados"> cada recado
-        - Mostra nome, email e mensagem
-        - Não há imagem, preço ou descrição longa
-        */
-
         ?>
         </div>
 
         <div id="footer">
             <p>Mural - Cloudinary & PHP</p>
-            <!-- No código anterior, o footer estava vazio -->
         </div>
     </div>
 </div>
 </body>
-</html>      
+</html>

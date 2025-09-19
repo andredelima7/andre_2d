@@ -1,110 +1,155 @@
-* { font-family: Verdana; font-size: 96%; margin:0; padding:0;}
-label { display: block; margin-top: 10px; }
-label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; font-size: 10px }
-p { clear: both; }
-.submit { margin-top: 1em; }
-em { font-weight: bold; padding-right: 1em; vertical-align: top; }
-body{
-	background:url(images/bg.png) repeat;
-}
-
-#main{
-	width:500px;
-	margin:auto;
-}
-
-#geral{
-	width:500px;
-	background:#FFFFFF;
-	float:left;
-}
-
-#header{
-	width:500px;
-	height:81px;
-	background:url(images/header.jpg);
-	float:left;
-}
-
-.andre_proj {
-	float: left;
-	width: 480px;
-	margin-bottom: 10px;
-	border-bottom-width: 1px;
-	border-bottom-style: solid;
-	border-bottom-color: #0066FF;
-	background-color: #EAF9FF;
-	padding: 10px;
-	list-style-type: none;
-}
-
-#header h1 {
-	font-family: "Trebuchet MS", Tahoma, Verdana, "Agency FB", Arial;
-	font-size: 18px;
-	font-style: normal;
-	font-weight: bold;
-	color: #05f7eb;
-	margin-top: 20px;
-	margin-left: 5px;
-}
-#header p {
-	font-size: 13px;
-	font-style: normal;
-	color: #999999;
-	margin-left: 5px;
-}
-#header a {
-	font-weight: bold;
-	color: #333333;
-}
-#formulario_mural {
+:root {
+	--color-primary: #2980b9;
+	--color-primary-dark: #1c5980;
+	--color-background: #2c3e50;
+	--color-card-bg: #fff;
+	--color-text: #2c3e50;
+	--color-light-bg: #f7f9fc;
+	--color-border: #ccc;
+  }
+  
+  body {
+	background-color: var(--color-background);
+	color: var(--color-card-bg); /* texto claro no fundo escuro */
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	line-height: 1.6;
+	margin: 0;
+	padding: 0;
+  }
+  
+  #main, #geral {
+	max-width: 500px;
+	margin: 40px auto;
+	background-color: var(--color-card-bg);
+	border-radius: 12px;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+	overflow: hidden;
+	color: var(--color-text);
+	padding: 0 20px 20px;
+  }
+  
+  #header {
+	background-color: var(--color-primary);
+	padding: 20px;
 	text-align: center;
-	float: left;
-	width: 480px;
-	margin-bottom: 10px;
-	background:#1c7190;
-	padding:10px;
-}
-#mural input{
-	width: 150px;
-	padding-top: 7px;
-	padding-bottom: 7px;
-	margin-top: 3px;
-	border: 1px solid #0fb9b0;
-}
-#mural textarea {
-	padding: 5px;
-	height: 90px;
-	width: 140px;
-	border: 1px solid #0fb9b0;
-}
-.btn {
-	padding: 7px;
-	width: 100px;
-	border: 1px solid #0fb9b0;
-	cursor:pointer;
-}
-
-.btn:hover{
-	background:#05f7eb;
-	color:#0c8680;
-}
-
-#footer{
-	width:500px;
-	height:30px;
-	float:left;
-	display:block;
-	background:#05f7eb;
-	line-height:30px;
-}
-
-#footer p{
-	color:#05f7eb;
-	padding-left:10px;
-}
-
-#footer a{
-	color:#05f7eb;
-	text-decoration:none;
-}
+	border-top-left-radius: 12px;
+	border-top-right-radius: 12px;
+  }
+  
+  #header h1 {
+	font-size: 1.5rem;
+	color: var(--color-card-bg);
+	font-weight: 700;
+	margin: 0;
+	letter-spacing: 1px;
+  }
+  
+  /* Formulário */
+  #formulario_mural {
+	padding: 25px 0 0 0;
+	background-color: var(--color-card-bg);
+  }
+  
+  label {
+	display: block;
+	margin: 12px 0 6px;
+	font-weight: 600;
+	color: var(--color-text);
+	text-align: left;
+	font-size: 0.9rem;
+  }
+  
+  #mural input,
+  #mural textarea {
+	width: 100%;
+	padding: 12px 14px;
+	margin-top: 6px;
+	border-radius: 8px;
+	border: 1.5px solid var(--color-border);
+	background-color: var(--color-card-bg);
+	color: var(--color-text);
+	font-size: 1rem;
+	transition: border-color 0.3s, box-shadow 0.3s;
+	font-family: inherit;
+	resize: vertical;
+	box-sizing: border-box;
+  }
+  
+  #mural input:focus,
+  #mural textarea:focus {
+	outline: none;
+	border-color: var(--color-primary);
+	box-shadow: 0 0 6px var(--color-primary);
+  }
+  
+  /* Botão */
+  .btn {
+	background-color: var(--color-primary);
+	color: var(--color-card-bg);
+	border: none;
+	padding: 14px;
+	width: 100%;
+	margin-top: 15px;
+	font-weight: 700;
+	font-size: 1rem;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+	box-shadow: 0 4px 8px rgba(41, 128, 185, 0.3);
+  }
+  
+  .btn:hover,
+  .btn:focus {
+	background-color: var(--color-primary-dark);
+	box-shadow: 0 6px 12px rgba(28, 89, 128, 0.6);
+	outline: none;
+  }
+  
+  /* Produtos */
+  .andre_proj {
+	background-color: var(--color-light-bg);
+	margin: 20px 20px 10px;
+	padding: 20px;
+	border-left: 6px solid var(--color-primary);
+	border-radius: 8px;
+	color: var(--color-text);
+	box-sizing: border-box;
+	transition: background-color 0.3s ease;
+  }
+  
+  .andre_proj:hover {
+	background-color: #e3eefc;
+  }
+  
+  /* Imagem centralizada */
+  .andre_proj img {
+	display: block;
+	margin: 15px auto 0;
+	max-width: 100%;
+	height: auto;
+	border-radius: 8px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Footer */
+  #footer {
+	background-color: var(--color-primary);
+	text-align: center;
+	padding: 14px 10px;
+	font-size: 0.9rem;
+	color: var(--color-card-bg);
+	border-bottom-left-radius: 12px;
+	border-bottom-right-radius: 12px;
+  }
+  
+  #footer a {
+	color: var(--color-card-bg);
+	text-decoration: underline;
+	transition: color 0.3s;
+  }
+  
+  #footer a:hover,
+  #footer a:focus {
+	color: #bbe1ff;
+	outline: none;
+  }

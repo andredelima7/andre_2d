@@ -25,13 +25,6 @@ function deletarImagemCloudinary($public_id, $cloud_name, $api_key, $api_secret)
     return json_decode($response, true);
 }
 
-/*
-COMPARAÇÃO: No código de recados/pedidos
-- Não há função de deletar arquivos
-- Não existe upload de imagem
-- Apenas se deleta o registro do banco
-*/
-
 // Excluir produto
 if(isset($_GET['excluir'])) {
     $id = intval($_GET['excluir']);
@@ -51,12 +44,6 @@ if(isset($_GET['excluir'])) {
     exit;
 }
 
-/*
-COMPARAÇÃO:
-- Código de recados/pedidos: deletar não manipula imagens, só remove o registro
-- Aqui é necessário deletar a imagem no Cloudinary antes de excluir do banco
-*/
-
 // Editar produto
 if(isset($_POST['editar'])) {
     $id = intval($_POST['id']);
@@ -70,22 +57,9 @@ if(isset($_POST['editar'])) {
     exit;
 }
 
-/*
-COMPARAÇÃO:
-- Código de recados/pedidos: não há edição inline
-- Aqui o sistema permite editar nome, descrição e preço, mas não imagem
-*/
-
-
 // Selecionar produtos para exibição
 $editar_id = isset($_GET['editar']) ? intval($_GET['editar']) : 0;
 $produtos = mysqli_query($conexao, "SELECT * FROM produtos ORDER BY id DESC");
-
-/*
-COMPARAÇÃO:
-- Código de recados/pedidos: SELECT * FROM recados ORDER BY id DESC
-- Aqui seleciona produtos com imagens e preço
-*/
 ?>
 
 <!DOCTYPE html>
@@ -94,6 +68,15 @@ COMPARAÇÃO:
 <meta charset="utf-8"/>
 <title>Moderar Produtos</title>
 <link rel="stylesheet" href="style.css"/>
+<style>
+    /* Centralizar imagem dentro do produto */
+    .produto img {
+        display: block;
+        margin: 0 auto;
+        max-width: 100%;
+        height: auto;
+    }
+</style>
 </head>
 <body>
 <div id="main">
